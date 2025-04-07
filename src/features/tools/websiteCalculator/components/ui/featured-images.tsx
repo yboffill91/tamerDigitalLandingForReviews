@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import {
   motion,
   useTransform,
@@ -10,39 +10,45 @@ import {
   useSpring,
   animate,
   stagger,
-} from "framer-motion";
-import { BsStarFill } from "react-icons/bs";
+} from 'framer-motion';
+import { BsStarFill } from 'react-icons/bs';
 
 const testimonials = [
   {
-    name: "Local Restaurant",
-    designation: "Restaurant Owner",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&q=80",
+    name: 'Local Restaurant',
+    designation: 'Restaurant Owner',
+    image:
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&q=80',
   },
   {
-    name: "Fitness Center",
-    designation: "Gym Owner",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&q=80",
+    name: 'Fitness Center',
+    designation: 'Gym Owner',
+    image:
+      'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&q=80',
   },
   {
-    name: "Dental Practice",
-    designation: "Practice Manager",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&h=150&fit=crop&q=80",
+    name: 'Dental Practice',
+    designation: 'Practice Manager',
+    image:
+      'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&h=150&fit=crop&q=80',
   },
   {
-    name: "Auto Shop",
-    designation: "Service Manager",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&q=80",
+    name: 'Auto Shop',
+    designation: 'Service Manager',
+    image:
+      'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&q=80',
   },
   {
-    name: "Real Estate",
-    designation: "Property Agent",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&q=80",
+    name: 'Real Estate',
+    designation: 'Property Agent',
+    image:
+      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&q=80',
   },
   {
-    name: "Local Hotel",
-    designation: "Hotel Manager",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&q=80",
+    name: 'Local Hotel',
+    designation: 'Hotel Manager',
+    image:
+      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&q=80',
   },
 ];
 
@@ -68,14 +74,14 @@ export const FeaturedImages = ({
   );
 
   const handleMouseMove = (event: React.MouseEvent) => {
-    const halfWidth = event.currentTarget.offsetWidth / 2;
+    const halfWidth = event.currentTarget.getBoundingClientRect().width / 2;
     x.set(event.nativeEvent.offsetX - halfWidth);
   };
 
   useEffect(() => {
     if (imagesLoaded) {
       animate(
-        ".animation-container",
+        '.animation-container',
         {
           scale: [1.1, 1, 0.9, 1],
           opacity: [0, 1],
@@ -86,8 +92,12 @@ export const FeaturedImages = ({
   }, [imagesLoaded]);
 
   return (
-    <div className={`flex flex-col items-center lg:items-start mt-10 mb-10 ${containerClassName || ''}`}>
-      <div className={`flex flex-col lg:flex-row items-center gap-4 lg:gap-6 mb-2 ${className || ''}`}>
+    <div
+      className={`flex flex-col items-center lg:items-start mt-10 mb-10 ${containerClassName || ''}`}
+    >
+      <div
+        className={`flex flex-col lg:flex-row items-center gap-4 lg:gap-6 mb-2 ${className || ''}`}
+      >
         {/* Images container */}
         <div className="flex flex-row items-center relative">
           {testimonials.map((testimonial, idx) => (
@@ -106,7 +116,7 @@ export const FeaturedImages = ({
                       y: 0,
                       scale: 1,
                       transition: {
-                        type: "spring",
+                        type: 'spring',
                         stiffness: 160,
                         damping: 20,
                       },
@@ -114,7 +124,7 @@ export const FeaturedImages = ({
                     exit={{ opacity: 0, y: 20, scale: 0.6 }}
                     style={{
                       translateX: translateX,
-                      whiteSpace: "nowrap",
+                      whiteSpace: 'nowrap',
                     }}
                     className="absolute top-16 -left-1/2 translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-blue-600 z-50 shadow-xl px-4 py-2"
                   >
@@ -183,7 +193,9 @@ export const FeaturedImages = ({
           </div>
         )}
       </div>
-      <p className={`text-neutral-400 text-sm text-center lg:text-left ml-0 lg:ml-8 relative z-40 ${textClassName || ''}`}>
+      <p
+        className={`text-neutral-400 text-sm text-center lg:text-left ml-0 lg:ml-8 relative z-40 ${textClassName || ''}`}
+      >
         Trusted by 100+ creators
       </p>
     </div>
