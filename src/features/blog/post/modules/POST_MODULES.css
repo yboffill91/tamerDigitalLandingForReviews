@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  p {
+    @apply text-foreground leading-relaxed mb-4;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold text-foreground mb-4 mt-8 border-b pb-2 border-ring/50;
+  }
+
+  img,
+  iframe {
+    @apply max-w-full h-auto rounded-lg shadow-md transition-all duration-300 ease-in-out;
+  }
+
+  img:hover,
+  iframe:hover {
+    @apply scale-105 shadow-lg;
+  }
+
+  table {
+    @apply w-full border-collapse border border-ring/30 mb-4;
+  }
+
+  th {
+    @apply text-left p-3 font-semibold text-foreground bg-background-primary;
+  }
+
+  tr:nth-child(even) {
+    @apply bg-card/10;
+  }
+
+  tr:nth-child(odd) {
+    @apply bg-card;
+  }
+
+  td {
+    @apply p-3 border-t border-ring/30;
+  }
+
+  blockquote {
+    @apply border-l-4 border-ring/30 pl-4 italic text-foreground/80 my-4;
+  }
+
+  pre {
+    @apply relative mt-8 mb-4 rounded-lg overflow-hidden;
+  }
+
+  pre::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-8 bg-gray-800 rounded-t-lg;
+  }
+
+  pre::after {
+    content: '•••';
+    @apply absolute top-0 right-4 text-foreground/80 text-3xl;
+  }
+
+  code {
+    @apply block bg-gray-900 text-foreground p-4 pt-10 rounded-lg overflow-x-auto;
+  }
+  ul,
+  ol {
+    @apply pl-6 mb-4 space-y-2;
+  }
+
+  ul {
+    @apply list-none;
+  }
+
+  ul li::before {
+    @apply text-primary inline-block w-4 ml--4 font-bold;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  ol li::marker {
+    @apply text-primary font-semibold;
+  }
+
+  li {
+    @apply text-foreground/80 leading-relaxed;
+  }
+
+  li > ul,
+  li > ol {
+    @apply mt-2 mb-0;
+  }
+  h1 {
+    @apply text-[clamp(2rem,5vw,4rem)] font-bold;
+  }
+  div > .wp-block-group {
+    @apply !bg-orange-500;
+  }
+}
+
+.wp-block-group {
+  /* Estilos para el contenedor principal del CTA */
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  background-image: linear-gradient(to right, #0070f3, #121212) !important;
+}
+
+.wp-block-group h2 {
+  /* Estilos para el encabezado dentro del CTA */
+  color: #333;
+  font-size: 2em;
+}
+
+.wp-block-button__link {
+  /* Estilos para el botón dentro del CTA */
+  background-color: #0070f3 !important;
+  color: white;
+  padding: 10px 20pxv !important;
+  border-radius: 5px !important;
+  text-decoration: none;
+}
