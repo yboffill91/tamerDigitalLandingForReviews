@@ -1,9 +1,7 @@
-import { HostingStep } from '@/features/tools/websiteCalculator/components'
+import { HostingStep } from '@/features/tools/websiteCalculator/components';
 
-export  const WebCalcHostingPage = ()=> {
-  return (
-      <HostingStep />
-  )
-}
+const WebCalcHostingPage = () => {
+  return <HostingStep />;
+};
 
-export default WebCalcHostingPage
+export default WebCalcHostingPage;
