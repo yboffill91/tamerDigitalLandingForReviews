@@ -10,6 +10,9 @@ import {
   Reviews,
   FAQ,
   WhyNeedUs,
+  Process,
+  ReadyToGrow,
+  FreeTools,
 } from '@/features/landing/components';
 
 const LandingPage = () => {
@@ -45,13 +48,24 @@ const LandingPage = () => {
         <Features />
       </section>
       <section aria-labelledby="Services" className="  px-2">
-        <div>
-          <Services />
-        </div>
+        <Services />
+      </section>
+      <section>
+        <Process />
+      </section>
+      <section>
+        <ReadyToGrow />
+      </section>
+
+      <section>
         <SocialMedia />
       </section>
+
       <section aria-labelledby="Reviews" className="">
         <Reviews />
+      </section>
+      <section aria-labelledby="Reviews" className="">
+        <FreeTools />
       </section>
       <section aria-labelledby="FAQ  px-2">
         <FAQ />

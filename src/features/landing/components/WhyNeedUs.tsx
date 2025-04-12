@@ -11,7 +11,13 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { IconButton3D, ShimmerButton } from '@/components/ui';
+import {
+  IconButton3D,
+  InfoCard,
+  ShimmerButton,
+  ShineBorder,
+} from '@/components/ui';
+import { ShineColors } from '@/lib';
 
 const GoogleCard = dynamic(() => import('./card-grid/GoogleCard'), {
   ssr: false,
@@ -137,13 +143,18 @@ export function WhyNeedUs() {
                 src="/features/landing/tobbitime.webp"
                 alt="Digital Growth"
                 fill
-                className="object-contain"
+                className="object-contain relative z-40"
                 priority
+                style={{
+                  maskImage: 'linear-gradient(black 80%, transparent)',
+                }}
               />
+              <span className="absolute top-1/4 left-1/2 -translate-x-1/2 blur-3xl bg-gradient-to-tr from-primary to-secondary size-64 -z-10 opacity-20" />
             </div>
             {/* Floating Stats */}
-            <div className="absolute -right-4 top-1/2 -translate-y-1/2 bg-card/90 backdrop-blur-sm border border-primary/20 rounded-lg p-4 shadow-xl mr-2">
-              <div className="flex items-center gap-2 mb-2">
+            <div className="absolute -right-4 top-1/2 -translate-y-1/2 bg-ring/10 backdrop-blur-sm border border-foregtound/20 rounded-lg p-4 shadow-xl mr-2 ">
+              <ShineBorder shineColor={ShineColors} duration={50} />
+              <div className="flex items-center gap-2 mb-2 ">
                 <Star className="w-5 h-5 text-primary" fill="currentColor" />
                 <span className=" font-medium">Success Rate</span>
               </div>
@@ -164,26 +175,35 @@ export function WhyNeedUs() {
             </motion.h3>
             <div className="space-y-6">
               {consequences.map((consequence, index) => (
-                <motion.div
-                  key={consequence.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex gap-4 p-4 bg-card/90 backdrop-blur-sm border border-foreground/20/10 rounded-lg group hover:border-primary/20 transition-all duration-300"
-                >
-                  <div className="min-w-[48px] w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                    <consequence.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="mb-1 group-hover:text-primary transition-colors">
-                      {consequence.title}
-                    </h4>
-                    <p className="text-foreground/60 text-sm">
-                      {consequence.description}
-                    </p>
-                  </div>
-                </motion.div>
+                // <motion.div
+                //   key={consequence.title}
+                //   initial={{ opacity: 0, y: 20 }}
+                //   whileInView={{ opacity: 1, y: 0 }}
+                //   viewport={{ once: true }}
+                //   transition={{ delay: index * 0.1 }}
+                //   className="flex gap-4 p-4 bg-card/90 backdrop-blur-sm border border-foreground/20/10 rounded-lg group hover:border-primary/20 transition-all duration-300"
+                // >
+                //   <div className="min-w-[48px] w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                //     <consequence.icon className="w-6 h-6 text-primary" />
+                //   </div>
+                //   <div>
+                //     <h4 className="mb-1 group-hover:text-primary transition-colors">
+                //       {consequence.title}
+                //     </h4>
+                //     <p className="text-foreground/60 text-sm">
+                //       {consequence.description}
+                //     </p>
+                //   </div>
+                // </motion.div>
+                <InfoCard
+                  color="blue"
+                  description={consequence.description}
+                  icon={consequence.icon}
+                  title={consequence.title}
+                  index={index}
+                  key={index + consequence.title}
+                  className="h-40"
+                />
               ))}
             </div>
           </div>
