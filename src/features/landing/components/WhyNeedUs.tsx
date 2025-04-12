@@ -143,8 +143,8 @@ export function WhyNeedUs() {
                 src="/features/landing/tobbitime.webp"
                 alt="Digital Growth"
                 fill
-                className="object-contain relative z-40"
                 priority
+                className="object-contain relative z-40"
                 style={{
                   maskImage: 'linear-gradient(black 80%, transparent)',
                 }}
@@ -175,26 +175,6 @@ export function WhyNeedUs() {
             </motion.h3>
             <div className="space-y-6">
               {consequences.map((consequence, index) => (
-                // <motion.div
-                //   key={consequence.title}
-                //   initial={{ opacity: 0, y: 20 }}
-                //   whileInView={{ opacity: 1, y: 0 }}
-                //   viewport={{ once: true }}
-                //   transition={{ delay: index * 0.1 }}
-                //   className="flex gap-4 p-4 bg-card/90 backdrop-blur-sm border border-foreground/20/10 rounded-lg group hover:border-primary/20 transition-all duration-300"
-                // >
-                //   <div className="min-w-[48px] w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                //     <consequence.icon className="w-6 h-6 text-primary" />
-                //   </div>
-                //   <div>
-                //     <h4 className="mb-1 group-hover:text-primary transition-colors">
-                //       {consequence.title}
-                //     </h4>
-                //     <p className="text-foreground/60 text-sm">
-                //       {consequence.description}
-                //     </p>
-                //   </div>
-                // </motion.div>
                 <InfoCard
                   color="blue"
                   description={consequence.description}
