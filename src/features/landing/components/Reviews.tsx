@@ -6,7 +6,7 @@ import { Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { reviews } from '@/features/landing/utils';
-// import { AnimatedPinWithLines } from './ui';
+import { AnimatedPinWithLines } from './ui';
 
 function ReviewsHeader() {
   return (
@@ -183,7 +183,7 @@ export function Reviews() {
               businesses make the right choice.
             </p>
             <div className="relative h-[300px] mt-24">
-              {/* <AnimatedPinWithLines /> */}
+              <AnimatedPinWithLines />
             </div>
             <div className="mt-4 text-center">
               <blockquote className="text-xl italic text-ring">
