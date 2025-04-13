@@ -6,13 +6,10 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import {
-  BorderBeam,
   Card,
   CardContent,
   CardHeader,
-  GridCardSet,
   IconButton3D,
-  InfoCard,
   ShimmerButton,
 } from '@/components/ui';
 import { tools } from '@/features/layout/header/utils/TOOLS.const';
