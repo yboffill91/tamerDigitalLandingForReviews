@@ -4,6 +4,7 @@ import {
   HeroSectionWithBeamsAndGrid,
   Locations,
   Process,
+  Reviews,
   SEOResultsCard,
   Services,
   SocialMedia,
@@ -95,6 +96,9 @@ const LandingPage = () => {
       </section>
       <section>
         <SocialMedia />
+      </section>
+      <section>
+        <Reviews />
       </section>
     </main>
   );
