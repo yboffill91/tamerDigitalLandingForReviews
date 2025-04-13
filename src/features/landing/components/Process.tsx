@@ -174,15 +174,15 @@ export function Process() {
                   <div
                     className={`w-20 h-20 rounded-3xl flex items-center justify-center transition-all duration-500 transform backdrop-filter backdrop-blur-3xl ${
                       activeStep === index
-                        ? 'bg-gradient-to-b from-ring/20 to-ring/5 scale-110 '
-                        : 'bg-ring/5 hover:bg-ring/50'
+                        ? 'bg-gradient-to-br from-primary via-ring to-secondary scale-110 '
+                        : 'bg-foreground/5 hover:bg-ring/50'
                     }`}
                   >
                     <Icon
                       className={`w-8 h-8 transition-all duration-500 ${
                         activeStep === index
-                          ? 'text-ring scale-110'
-                          : 'text-foreground/80'
+                          ? 'text-primary-foreground scale-110'
+                          : 'text-foreground/20'
                       }`}
                     />
                   </div>
