@@ -1,19 +1,10 @@
 import {
   FeaturesTabs,
+  FreeTools,
   HeroSectionWithBeamsAndGrid,
   Locations,
   SEOResultsCard,
-  // FeaturesTabs,
-  // SEOResultsCard,
-  // Features,
-  // Services,
-  // SocialMedia,
-  // Reviews,
-  // FAQ,
   WhyNeedUs,
-  // Process,
-  // ReadyToGrow,
-  // FreeTools,
 } from '@/features/landing/components';
 
 const LandingPage = () => {
@@ -89,6 +80,9 @@ const LandingPage = () => {
       <section>
         <FeaturesTabs />
         <SEOResultsCard />
+      </section>
+      <section>
+        <FreeTools />
       </section>
     </main>
   );
