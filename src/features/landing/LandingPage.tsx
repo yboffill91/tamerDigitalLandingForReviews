@@ -8,7 +8,7 @@ import {
   // SocialMedia,
   // Reviews,
   // FAQ,
-  // WhyNeedUs,
+  WhyNeedUs,
   // Process,
   // ReadyToGrow,
   // FreeTools,
@@ -77,6 +77,9 @@ const LandingPage = () => {
         }}
       >
         <HeroSectionWithBeamsAndGrid />
+      </section>
+      <section>
+        <WhyNeedUs />
       </section>
     </main>
   );
