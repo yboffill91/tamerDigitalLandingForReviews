@@ -1,6 +1,8 @@
 import {
+  FeaturesTabs,
   HeroSectionWithBeamsAndGrid,
   Locations,
+  SEOResultsCard,
   // FeaturesTabs,
   // SEOResultsCard,
   // Features,
@@ -83,6 +85,10 @@ const LandingPage = () => {
       </section>
       <section>
         <Locations />
+      </section>
+      <section>
+        <FeaturesTabs />
+        <SEOResultsCard />
       </section>
     </main>
   );
