@@ -6,6 +6,7 @@ import {
   Process,
   SEOResultsCard,
   Services,
+  SocialMedia,
   WhyNeedUs,
 } from '@/features/landing/components';
 
@@ -91,6 +92,9 @@ const LandingPage = () => {
       </section>
       <section>
         <Process />
+      </section>
+      <section>
+        <SocialMedia />
       </section>
     </main>
   );
