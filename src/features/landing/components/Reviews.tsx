@@ -6,7 +6,7 @@ import { Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { reviews } from '@/features/landing/utils';
-import { AnimatedPinWithLines } from './ui';
+// import { AnimatedPinWithLines } from './ui';
 
 function ReviewsHeader() {
   return (
