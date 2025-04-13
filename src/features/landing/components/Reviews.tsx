@@ -1,12 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Grid, IconButton3D } from '@/components/ui';
-import { Star } from 'lucide-react';
+import { Grid, IconButton3D, ShimmerButton } from '@/components/ui';
+import { MapPin, Star, StarIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { reviews } from '@/features/landing/utils';
-import { AnimatedPinWithLines } from './ui';
+import Link from 'next/link';
+// import { AnimatedPinWithLines } from './ui';
 
 function ReviewsHeader() {
   return (
@@ -182,8 +183,19 @@ export function Reviews() {
               their digital growth. Share your experience and help other local
               businesses make the right choice.
             </p>
-            <div className="relative h-[300px] mt-24">
-              <AnimatedPinWithLines />
+            <div className="relative mt-24">
+              {/* <AnimatedPinWithLines /> */}
+              <Link
+                href="https://www.google.com/maps/place/TAMERDigital/@25.9437414,-80.2976751,1672m/data=!3m2!1e3!4b1!4m6!3m5!1s0xac2f005d1eb885a5:0x21d75ef84ccb829f!8m2!3d25.9437414!4d-80.2976751!16s%2Fg%2F11vpdt7f8m?hl=en&entry=ttu&g_ep=EgoyMDI1MDExNS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+              >
+                <div className="flex items-center justify-center -translate-y-10 -translate-x-[1px]">
+                  <ShimmerButton variant="solid" size="big">
+                    <StarIcon className="size-4 fill-yellow-500 text-primary-foreground group-hover:rotate-180 transition-all duration-700" />{' '}
+                    Leave us a Review on Google
+                  </ShimmerButton>
+                </div>
+              </Link>
             </div>
             <div className="mt-4 text-center">
               <blockquote className="text-xl italic text-ring">
