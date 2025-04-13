@@ -99,7 +99,6 @@ export function WhyNeedUs() {
             let them get ahead of you.
           </motion.p>
         </div>
-
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {stats.map((stat, index) => (
@@ -128,7 +127,6 @@ export function WhyNeedUs() {
             </motion.div>
           ))}
         </div>
-
         {/* Main Content Grid */}
         <div className="grid xl:grid-cols-2 gap-12 items-center mb-16">
           {/* Left Column - Image */}
@@ -188,7 +186,6 @@ export function WhyNeedUs() {
             </div>
           </div>
         </div>
-
         {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -205,6 +202,7 @@ export function WhyNeedUs() {
             Free Strategy Session · No Commitment Required
           </p>
         </motion.div>
+        http://localhost:3000/tools/seo-scout
       </div>
     </section>
   );

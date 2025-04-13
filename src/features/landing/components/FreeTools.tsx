@@ -95,9 +95,7 @@ export function FreeTools() {
                       </h3>
                     </div>
                     <p
-                      className={
-                        status ? 'text-foreground/60' : 'text-foreground/20'
-                      }
+                      className={` ${status ? 'text-foreground/60' : 'text-foreground/20'} text-sm`}
                     >
                       {description}
                     </p>
