@@ -183,12 +183,12 @@ export function Reviews() {
               businesses make the right choice.
             </p>
             <div className="relative h-[300px] mt-24">
-              <AnimatedPinWithLines />
+              {/* <AnimatedPinWithLines /> */}
             </div>
             <div className="mt-4 text-center">
               <blockquote className="text-xl italic text-ring">
-                &apos;The best marketing does&apos;nt feel like marketing. It feels like
-                helping.&quot;
+                &apos;The best marketing does&apos;nt feel like marketing. It
+                feels like helping.&quot;
               </blockquote>
               <p className="mt-2 text-foreground/80 text-sm">- Seth Godin</p>
             </div>
