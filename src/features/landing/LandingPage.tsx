@@ -4,6 +4,7 @@ import {
   HeroSectionWithBeamsAndGrid,
   Locations,
   SEOResultsCard,
+  Services,
   WhyNeedUs,
 } from '@/features/landing/components';
 
@@ -83,6 +84,9 @@ const LandingPage = () => {
       </section>
       <section>
         <FreeTools />
+      </section>
+      <section>
+        <Services />
       </section>
     </main>
   );
