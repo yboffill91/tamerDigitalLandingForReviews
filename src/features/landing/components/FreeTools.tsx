@@ -5,7 +5,16 @@ import { Wrench } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { IconButton3D } from '@/components/ui';
+import {
+  BorderBeam,
+  Card,
+  CardContent,
+  CardHeader,
+  GridCardSet,
+  IconButton3D,
+  InfoCard,
+  ShimmerButton,
+} from '@/components/ui';
 import { tools } from '@/features/layout/header/utils/TOOLS.const';
 import Image from 'next/image';
 
@@ -58,60 +67,40 @@ export function FreeTools() {
       {/* Tools Grid */}
       <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-8">
         {/* Left Column - Tools */}
-        <div className="flex items-center justify-center gap-1 flex-wrap">
+        <div className="grid md:grid-cols-2 gap-2">
           {tools.map(
-            ({ icon: IconElement, name, description, status, href }, index) => (
-              <motion.div
-                key={`tool-${name}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="w-72"
+            (
+              { icon: Icon, name, description, status, href, action },
+              index
+            ) => (
+              <Card
+                className={`border border-foreground/10 rounded-lg relative p-2 min-h-48 bg-card group hover:bg-ring/20 transition-colors duration-700 ease-in-out ${!status ? 'opacity-20 pointer-events-none' : ''}`}
+                key={index}
               >
-                <Link
-                  href={href}
-                  className={`${status ? '' : 'pointer-events-none'}`}
-                >
-                  <div
-                    className={`w-full h-32  flex flex-col gap-2 rounded-lg border px-4 py-2 relative ${status ? 'bg-ring/10 border-foreground/20 group hover:bg-ring/20 transition-all duration-700 ease-in-out ' : 'bg-foreground/5'}`}
-                  >
-                    <div className="flex gap-2 items-center">
-                      <span
-                        className={`p-1 rounded-lg border ${
-                          status
-                            ? 'bg-ring text-primary-foreground border-primary group-hover:scale-110 transition-all duration-700 ease-in-out'
-                            : 'bg-foreground/20 text-foreground/40'
-                        }`}
-                      >
-                        <IconElement />
-                      </span>
-                      <h3
-                        className={
-                          status ? 'text-primary' : 'text-foreground/40'
-                        }
-                      >
-                        {name}
-                      </h3>
-                    </div>
-                    <p
-                      className={` ${status ? 'text-foreground/60' : 'text-foreground/20'} text-sm`}
-                    >
-                      {description}
-                    </p>
-                    <ArrowUpRight className="opacity-0 absolute top-2 right-2 text-primary size-4 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-700 ease-in-out" />
-                    <span
-                      className={
-                        status
-                          ? 'hidden'
-                          : 'flex items-center justify-center bg-ring/50 p-1 text-primary-foreground text-[0.7rem] rounded absolute top-2 right-2'
-                      }
-                    >
-                      Soon
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
+                {!status ? (
+                  <span className="bg-primary px-1 py-px rounded-lg text-[.6rem] absolute top-2 right-2 opacity-100">
+                    Soon
+                  </span>
+                ) : (
+                  <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-700 ease-in-out absolute top-2 right-2 opacity-5 group-hover:opacity-100 text-ring" />
+                )}
+                <CardHeader className="flex gap-2 items-center">
+                  <span className="p-1 bg-primary rounded-lg group-hover:rotate-45 transition-all duration-700 ease-in-out">
+                    <Icon className="group-hover:-rotate-45 transition-all duration-700 ease-in-out group-hover:scale-125 text-primary-foreground" />
+                  </span>
+                  <h3 className="text-primary group-hover:text-ring group-hover:translate-x-3 transition-all duration-700 ease-in-out group-hover:scale-105 group-hover:font-semibold flex">
+                    {name}
+                  </h3>
+                </CardHeader>
+                <CardContent className="flex flex-col bg-ring/10 p-2 rounded-lg min-h-28 justify-between">
+                  <p className="text-pretty text-sm">{description}</p>
+                  <Link href={href}>
+                    <ShimmerButton className="w-full" variant="solid">
+                      {action}
+                    </ShimmerButton>
+                  </Link>
+                </CardContent>
+              </Card>
             )
           )}
         </div>

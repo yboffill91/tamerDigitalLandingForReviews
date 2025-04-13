@@ -19,6 +19,7 @@ export interface TOOL {
   href: string;
   status?: 'ready';
   metadata: Metadata;
+  action: string;
 }
 
 export const tools: TOOL[] = [
@@ -34,6 +35,7 @@ export const tools: TOOL[] = [
       description:
         'Calculate accurate website development costs -- TamerDigital',
     },
+    action: 'Calculate',
   },
   {
     name: 'Seo Article Builder',
@@ -46,6 +48,7 @@ export const tools: TOOL[] = [
       description:
         'Generate engaging content and copy with our AI-powered writing assistant -- TamerDigital',
     },
+    action: 'Generate',
   },
   {
     name: 'Full Website Creator',
@@ -58,6 +61,7 @@ export const tools: TOOL[] = [
       description:
         'Create professional websites quickly with our intuitive drag-and-drop builder -- TamerDigital',
     },
+    action: 'Create',
   },
   {
     name: 'Gmb Booster',
@@ -70,6 +74,7 @@ export const tools: TOOL[] = [
       description:
         'Optimize and manage your Google My Business profile for better local visibility -- TamerDigital',
     },
+    action: 'Optimize',
   },
   {
     name: 'Seo Audit Tool',
@@ -82,6 +87,7 @@ export const tools: TOOL[] = [
       description:
         "Analyze your website's SEO performance and get actionable recommendations for improvement -- TamerDigital",
     },
+    action: 'Analyze',
   },
   {
     name: 'Siteaudit Analyzer',
@@ -92,6 +98,7 @@ export const tools: TOOL[] = [
       title: 'Siteaudit Analyzer',
       description: 'Deep website performance insights -- TamerDigital',
     },
+    action: 'Analyze',
   },
   {
     name: 'Digital Card Maker',
@@ -102,6 +109,7 @@ export const tools: TOOL[] = [
       title: 'Digital Card Maker',
       description: 'Create digital business cards -- TamerDigital',
     },
+    action: 'Create',
   },
   {
     name: 'Smallbiz Crm',
@@ -113,6 +121,7 @@ export const tools: TOOL[] = [
       title: 'Smallbiz Crm',
       description: 'Simple customer relationship management -- TamerDigital',
     },
+    action: 'Manage',
   },
 ];
 
