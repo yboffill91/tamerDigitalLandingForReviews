@@ -1,6 +1,6 @@
 import {
   HeroSectionWithBeamsAndGrid,
-  // Locations,
+  Locations,
   // FeaturesTabs,
   // SEOResultsCard,
   // Features,
@@ -80,6 +80,9 @@ const LandingPage = () => {
       </section>
       <section>
         <WhyNeedUs />
+      </section>
+      <section>
+        <Locations />
       </section>
     </main>
   );
