@@ -1,4 +1,5 @@
 import {
+  FAQ,
   FeaturesTabs,
   FreeTools,
   HeroSectionWithBeamsAndGrid,
@@ -99,6 +100,9 @@ const LandingPage = () => {
       </section>
       <section>
         <Reviews />
+      </section>
+      <section>
+        <FAQ />
       </section>
     </main>
   );
