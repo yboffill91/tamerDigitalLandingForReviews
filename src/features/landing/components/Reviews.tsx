@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Grid, IconButton3D, ShimmerButton } from '@/components/ui';
-import { MapPin, Star, StarIcon } from 'lucide-react';
+import { Star, StarIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { reviews } from '@/features/landing/utils';
