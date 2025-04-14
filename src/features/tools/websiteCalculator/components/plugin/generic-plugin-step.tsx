@@ -1,79 +1,102 @@
 'use client';
 
 import { useEffect } from 'react';
-import { formsPlugins } from '@/features/tools/websiteCalculator/utils/data/Forms.const';
 import {
   PluginData,
   usePluginStep,
   usePlugins,
 } from '@/features/tools/websiteCalculator/utils';
-import { ShimmerButton } from '@/components/ui';
-import { useRouter } from 'next/navigation';
 import {
-  PluginCard,
-  PluginFeatureList,
-  PluginPriceSummary,
   PluginStepLayout,
+  PluginPriceSummary,
+  PluginCard,
   PluginVersionOption,
-} from '@/features/tools/websiteCalculator/components/plugin';
+  PluginFeatureList,
+  PluginStepNavigation,
+} from './';
 
-export function WebCalcFormsStep() {
-  const { forms, updatePlugin } = usePlugins();
-  const router = useRouter();
+interface GenericPluginStepProps {
+  pluginType:
+    | 'security'
+    | 'seo'
+    | 'backup'
+    | 'analytics'
+    | 'cache'
+    | 'forms'
+    | 'antispam'
+    | 'multilingual'
+    | 'ecommerce';
+  plugins: PluginData[];
+  priceSummaryTitle: string;
+  priceSummaryDescription: string;
+  onNext: () => void;
+  onBack: () => void;
+}
 
+export function GenericPluginStep({
+  pluginType,
+  plugins,
+  priceSummaryTitle,
+  priceSummaryDescription,
+  onNext,
+  onBack,
+}: GenericPluginStepProps) {
+  // Get the plugin from the store
+  const { getPlugin, updatePlugin } = usePlugins();
+  const plugin = getPlugin(pluginType);
+
+  // Initialize the plugin step hook with the current store values
   const {
     selectedPlugin,
     selectedVersion,
     handleSelection,
     getPluginPrice,
     formData,
-  } = usePluginStep('forms', formsPlugins, forms.name, forms.version);
+  } = usePluginStep(
+    pluginType,
+    plugins,
+    plugin?.name || null,
+    plugin?.version || null
+  );
 
+  // Update the store when selection changes
   useEffect(() => {
     if (selectedPlugin && selectedVersion) {
       const price = getPluginPrice();
-      updatePlugin('forms', {
+      updatePlugin(pluginType, {
         name: selectedPlugin,
         version: selectedVersion,
         price,
       });
     }
-  }, [selectedPlugin, selectedVersion, updatePlugin, getPluginPrice]);
+  }, [
+    selectedPlugin,
+    selectedVersion,
+    updatePlugin,
+    getPluginPrice,
+    pluginType,
+  ]);
 
   return (
     <PluginStepLayout
-      title="Forms & Subscriptions"
-      description="Choose a forms plugin to handle contact forms and subscriptions. Each option offers different features for user interaction and data collection."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary
-            title="Total Forms Setup Cost"
+            title={priceSummaryTitle}
             price={getPluginPrice()}
-            description="Includes professional setup, configuration, and form creation"
+            description={priceSummaryDescription}
           />
         )
       }
       footer={
-        <div className="flex justify-center items-center gap-6 w-full mt-12">
-          <ShimmerButton
-            variant="ghost"
-            size="big"
-            onClick={() => router.push('/website-calculator/cacheStep')}
-          >
-            Back
-          </ShimmerButton>
-          <ShimmerButton
-            variant="solid"
-            size="big"
-            onClick={() => router.push('/website-calculator/antispamStep')}
-            className={`${forms.name ? '' : 'hidden'}`}
-          >
-            Next
-          </ShimmerButton>
-        </div>
+        <PluginStepNavigation
+          onBack={onBack}
+          onNext={onNext}
+          isNextDisabled={!selectedPlugin || !selectedVersion}
+        />
       }
     >
-      {formsPlugins.map((plugin: PluginData) => (
+      {plugins.map(plugin => (
         <PluginCard
           key={plugin.name}
           name={plugin.name}

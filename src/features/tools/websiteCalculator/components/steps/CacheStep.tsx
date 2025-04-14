@@ -1,12 +1,18 @@
 'use client';
 
 import { useEffect } from 'react';
-import { cn } from '@/lib';
 import { cachePlugins } from '@/features/tools/websiteCalculator/utils/data/Cache.const';
 import { usePluginStep } from '@/features/tools/websiteCalculator/utils/hooks/usePluginHook';
 import { usePlugins } from '@/features/tools/websiteCalculator/utils/hooks/useCalculatorHooks';
 import { ShimmerButton } from '@/components/ui';
 import { useRouter } from 'next/navigation';
+import {
+  PluginCard,
+  PluginFeatureList,
+  PluginPriceSummary,
+  PluginStepLayout,
+  PluginVersionOption,
+} from '@/features/tools/websiteCalculator/components/plugin';
 
 export function WebCalcCacheStep() {
   // Get the cache plugin from the store
@@ -35,151 +41,90 @@ export function WebCalcCacheStep() {
   }, [selectedPlugin, selectedVersion, updatePlugin, getPluginPrice]);
 
   return (
-    <div>
-      {formData.purpose === 'client' && (
-        <div className="bg-gradient-to-br from-primary/10 to-ring/20 border border-ring rounded-lg p-6 mb-6">
-          <h3 className="text-xl font-semibold text-primary mb-2">
-            Total Cache & Optimization Setup Cost
-          </h3>
-          <p className="text-3xl font-bold text-foreground">
-            ${getPluginPrice().toFixed(2)}
-          </p>
-          <p className="text-sm text-primary mt-2">
-            Includes professional setup, configuration, and performance
-            optimization
-          </p>
-        </div>
-      )}
-
-      <div className="grid gap-6">
-        {cachePlugins.map(plugin => (
-          <div
-            key={plugin.name}
-            className={cn(
-              'rounded-lg border-2 transition-all',
-              selectedPlugin === plugin.name
-                ? 'border-primary bg-ring/20'
-                : 'border-foreground/20'
-            )}
+    <PluginStepLayout
+      title="Cache & Optimization"
+      description="Choose a caching and optimization plugin to improve your website's performance. Each option offers different features for speed optimization and user experience."
+      priceSummary={
+        formData.purpose === 'client' && (
+          <PluginPriceSummary
+            title="Total Cache & Optimization Setup Cost"
+            price={getPluginPrice()}
+            description="Includes professional setup, configuration, and performance optimization"
+          />
+        )
+      }
+      footer={
+        <div className="flex justify-center items-center gap-6 w-full mt-12">
+          <ShimmerButton
+            variant="ghost"
+            size="big"
+            onClick={() => router.push('/website-calculator/analyticsStep')}
           >
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-2xl font-bold">{plugin.name}</h3>
-                  <p className="text-foreground/80">{plugin.description}</p>
-                </div>
-                {formData.purpose === 'client' && (
-                  <div className="text-right">
-                    <div className="text-xl font-bold text-primary">
-                      Setup Fee: ${plugin.setupFee}
-                    </div>
-                    <div className="text-sm text-foreground/80">
-                      One-time professional setup
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {plugin.free ? (
-                  <div
-                    onClick={() => handleSelection(plugin.name, 'free')}
-                    className={cn(
-                      'rounded-lg border-2 p-4 cursor-pointer transition-all',
-                      selectedPlugin === plugin.name &&
-                        selectedVersion === 'free'
-                        ? 'border-primary bg-ring/20'
-                        : 'border-foreground/20 hover:border-primary'
-                    )}
-                  >
-                    <div className="flex justify-between items-center mb-4">
-                      <h4 className="text-lg font-semibold">Free Version</h4>
-                      <span className="text-xl font-bold">$0</span>
-                    </div>
-                    <ul className="space-y-2">
-                      {plugin.features.free?.map((feature, index) => (
-                        <li
-                          key={index}
-                          className="flex items-center gap-2 text-sm"
-                        >
-                          <div className="w-1.5 h-1.5 bg-secondary-green rounded-full" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
-                  <div className="rounded-lg border-2 border-foreground/20 p-4 bg-ring/20">
-                    <div className="flex items-center justify-center h-full">
-                      <div className="text-center">
-                        <span className="inline-block px-3 py-1 bg-ring text-foreground rounded-full text-sm font-medium mb-2">
-                          Premium Only Plugin
-                        </span>
-                        <p className="text-foreground/80 text-sm">
-                          This plugin is only available in Premium version
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                <div
-                  onClick={() => handleSelection(plugin.name, 'premium')}
-                  className={cn(
-                    'rounded-lg border-2 p-4 cursor-pointer transition-all',
-                    selectedPlugin === plugin.name &&
-                      selectedVersion === 'premium'
-                      ? 'border-primary bg-ring/20 shadow-lg'
-                      : 'border-foreground/20 hover:border-primary',
-                    plugin.free ? '' : 'md:col-span-2'
-                  )}
-                >
-                  <div className="flex justify-between items-center mb-4">
-                    <h4 className="text-lg font-semibold">
-                      {plugin.free ? 'Premium Version' : 'Premium Only Version'}
-                    </h4>
-                    <span className="text-xl font-bold">
-                      $
-                      {formData.purpose === 'client'
-                        ? (plugin.prices.premium * 1.3).toFixed(2)
-                        : plugin.prices.premium}
-                      /year
-                    </span>
-                  </div>
-                  <ul className="space-y-2">
-                    {plugin.features.premium?.map((feature, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center gap-2 text-sm"
-                      >
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center items-center gap-6 w-full mt-12">
-        <ShimmerButton
-          variant="ghost"
-          size="big"
-          onClick={() => router.push('/website-calculator/analyticsStep')}
+            Back
+          </ShimmerButton>
+          <ShimmerButton
+            variant="solid"
+            size="big"
+            onClick={() => router.push('/website-calculator/formsStep')}
+            className={`${cache.name ? '' : 'hidden'}`}
+          >
+            Next
+          </ShimmerButton>
+        </div>
+      }
+    >
+      {cachePlugins.map(plugin => (
+        <PluginCard
+          key={plugin.name}
+          name={plugin.name}
+          description={plugin.description}
+          isSelected={selectedPlugin === plugin.name}
+          setupFee={plugin.setupFee}
+          showClientPricing={formData.purpose === 'client'}
         >
-          Back
-        </ShimmerButton>
-        <ShimmerButton
-          variant="solid"
-          size="big"
-          onClick={() => router.push('/website-calculator/formsStep')}
-          className={`${cache.name ? '' : 'hidden'}`}
-        >
-          Next
-        </ShimmerButton>
-      </div>
-    </div>
+          {plugin.free ? (
+            <PluginVersionOption
+              title="Free Version"
+              price={0}
+              isSelected={
+                selectedPlugin === plugin.name && selectedVersion === 'free'
+              }
+              onClick={() => handleSelection(plugin.name, 'free')}
+            >
+              <PluginFeatureList
+                features={plugin.features.free || []}
+                color="green"
+              />
+            </PluginVersionOption>
+          ) : (
+            <PluginVersionOption
+              title="Free Version"
+              price={0}
+              isSelected={false}
+              onClick={() => {}}
+              isPremiumOnly
+            />
+          )}
+
+          <PluginVersionOption
+            title={plugin.free ? 'Premium Version' : 'Premium Only Version'}
+            price={
+              formData.purpose === 'client'
+                ? (plugin.prices.premium * 1.3).toFixed(2) + '/year'
+                : plugin.prices.premium + '/year'
+            }
+            isSelected={
+              selectedPlugin === plugin.name && selectedVersion === 'premium'
+            }
+            onClick={() => handleSelection(plugin.name, 'premium')}
+          >
+            <PluginFeatureList
+              features={plugin.features.premium}
+              color="blue"
+            />
+          </PluginVersionOption>
+        </PluginCard>
+      ))}
+    </PluginStepLayout>
   );
 }

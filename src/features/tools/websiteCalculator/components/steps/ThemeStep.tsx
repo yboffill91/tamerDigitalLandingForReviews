@@ -1,33 +1,38 @@
-'use client'
-import React from 'react'
-import { useCalculatorStore } from "@/store"
-import { themes } from '../../utils'
-import { cn } from '@/lib'
-import { ShimmerButton } from '@/components/ui'
-import { useRouter } from 'next/navigation'
+'use client';
+import React from 'react';
+import { useCalculatorStore } from '@/store';
+import { themes } from '../../utils';
+import { cn } from '@/lib';
+import { ShimmerButton } from '@/components/ui';
+import { useRouter } from 'next/navigation';
 
 export const ThemeStep = () => {
-    const {formData, theme, setTheme} = useCalculatorStore()
-    const router = useRouter()
+  const { formData, theme, setTheme } = useCalculatorStore();
+  const router = useRouter();
   return (
-   <>
-    {formData.purpose === 'client' && (
+    <>
+      {formData.purpose === 'client' && (
         <div className="ring/10 border border-ring rounded-lg p-4 mb-6">
-          <h3 className="text-lg font-semibold text-primary mb-2">Professional Service Note</h3>
+          <h3 className="text-lg font-semibold text-primary mb-2">
+            Professional Service Note
+          </h3>
           <p className="text-secondary">
-            Theme setup includes professional configuration, optimization, and customization to match your brand. 
-            Setup fees cover expert implementation and technical configuration.
+            Theme setup includes professional configuration, optimization, and
+            customization to match your brand. Setup fees cover expert
+            implementation and technical configuration.
           </p>
         </div>
       )}
 
       <div className="grid gap-6">
-        {themes.map(({name, description, setupFee, price, features}) => (
+        {themes.map(({ name, description, setupFee, price, features }) => (
           <div
             key={name}
             className={cn(
-              "rounded-lg border-2 transition-all",
-              theme.name === name ? "border-primary bg-ring/20" : "border-foreground/20"
+              'rounded-lg border-2 transition-all',
+              theme.name === name
+                ? 'border-primary bg-ring/20'
+                : 'border-foreground/20'
             )}
           >
             <div className="p-6">
@@ -41,24 +46,24 @@ export const ThemeStep = () => {
                     <div className="text-xl font-bold text-primary">
                       Setup Fee: ${setupFee}
                     </div>
-                    <div className="text-sm text-foreground/80">One-time professional setup</div>
+                    <div className="text-sm text-foreground/80">
+                      One-time professional setup
+                    </div>
                   </div>
                 )}
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 {price.free !== null && (
-                  
                   <div
                     onClick={() => {
-                      setTheme(name, 'pro', price.pro );
-                      
+                      setTheme(name, 'free', 0);
                     }}
                     className={cn(
-                      "rounded-lg border-2 p-4 cursor-pointer transition-all",
+                      'rounded-lg border-2 p-4 cursor-pointer transition-all',
                       theme.name === name && theme.version === 'free'
-                        ? "border-primary bg-card"
-                        : "border-foreground/20 hover:border-primary"
+                        ? 'border-primary bg-card'
+                        : 'border-foreground/20 hover:border-primary'
                     )}
                   >
                     <div className="flex justify-between items-center mb-4">
@@ -67,7 +72,10 @@ export const ThemeStep = () => {
                     </div>
                     <ul className="space-y-2">
                       {features.core.map((feature, index) => (
-                        <li key={index} className="flex items-center gap-2 text-sm">
+                        <li
+                          key={index}
+                          className="flex items-center gap-2 text-sm"
+                        >
                           <div className="w-1.5 h-1.5 bg-secondary-green rounded-full" />
                           {feature}
                         </li>
@@ -89,16 +97,16 @@ export const ThemeStep = () => {
                     </div>
                   </div>
                 )}
-                
+
                 <div
                   onClick={() => {
                     setTheme(name, 'pro', price.pro);
                   }}
                   className={cn(
-                    "rounded-lg border-2 p-4 cursor-pointer transition-all",
+                    'rounded-lg border-2 p-4 cursor-pointer transition-all',
                     theme.name === name && theme.version === 'pro'
-                      ? "border-primary bg-card shadow-lg"
-                      : "border-foreground/20 hover:border-primary"
+                      ? 'border-primary bg-card shadow-lg'
+                      : 'border-foreground/20 hover:border-primary'
                   )}
                 >
                   <div className="flex justify-between items-center mb-4">
@@ -109,7 +117,10 @@ export const ThemeStep = () => {
                   </div>
                   <ul className="space-y-2">
                     {features.pro.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-2 text-sm">
+                      <li
+                        key={index}
+                        className="flex items-center gap-2 text-sm"
+                      >
                         <div className="w-1.5 h-1.5 bg-primary rounded-full" />
                         {feature}
                       </li>
@@ -122,10 +133,22 @@ export const ThemeStep = () => {
         ))}
       </div>
       <div className="flex justify-center items-center gap-6 w-full mt-12">
-        <ShimmerButton variant='ghost' size='big' onClick={()=>router.push('/website-calculator/hostingStep')}>Back</ShimmerButton>
-        <ShimmerButton variant="solid" size="big" onClick={() => router.push('/website-calculator/pageStep')} className={`${theme ? "" : "hidden"}`}>Next</ShimmerButton>
-
+        <ShimmerButton
+          variant="ghost"
+          size="big"
+          onClick={() => router.push('/website-calculator/hostingStep')}
+        >
+          Back
+        </ShimmerButton>
+        <ShimmerButton
+          variant="solid"
+          size="big"
+          onClick={() => router.push('/website-calculator/pageStep')}
+          className={`${theme ? '' : 'hidden'}`}
+        >
+          Next
+        </ShimmerButton>
       </div>
-   </>
-  )
-}
+    </>
+  );
+};

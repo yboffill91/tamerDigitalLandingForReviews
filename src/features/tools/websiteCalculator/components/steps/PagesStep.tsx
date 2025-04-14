@@ -6,9 +6,10 @@ import {
   pageTypes,
 } from '@/features/tools/websiteCalculator/utils';
 import { cn } from '@/lib';
-import { ShimmerButton } from '@/components/ui';
+import { Button } from '@/features/tools/websiteCalculator/components';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { ShimmerButton } from '@/components/ui';
 
 export const PagesStep = () => {
   const router = useRouter();
@@ -157,7 +158,7 @@ export const PagesStep = () => {
           {pageTypes.map(pageType => (
             <div
               key={pageType.name}
-              className="bg-ring/5 border border-foreground/20 rounded-lg p-4"
+              className="bg-card border border-foreground/20 rounded-lg p-4"
             >
               <div className="mb-3">
                 <h4 className="text-lg font-semibold">{pageType.name}</h4>
@@ -171,7 +172,7 @@ export const PagesStep = () => {
 
               <div className="flex flex-wrap gap-2 mb-3">
                 {['basic', 'intermediate', 'advanced'].map(complexity => (
-                  <ShimmerButton
+                  <Button
                     variant="outline"
                     key={complexity}
                     onClick={() =>
@@ -203,13 +204,13 @@ export const PagesStep = () => {
                         )
                       </span>
                     )}
-                  </ShimmerButton>
+                  </Button>
                 ))}
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <ShimmerButton
+                  <Button
                     variant="outline"
                     onClick={() =>
                       setPageCount({
@@ -220,11 +221,11 @@ export const PagesStep = () => {
                     className={`${!pages.count[pageType.name] && 'pointer-events-none bg-foreground/20 text-foreground/40'}`}
                   >
                     -
-                  </ShimmerButton>
+                  </Button>
                   <span className="text-lg font-semibold min-w-[2ch] text-center">
                     {pages.count[pageType.name] || 0}
                   </span>
-                  <ShimmerButton
+                  <Button
                     variant="outline"
                     onClick={() =>
                       setPageCount({
@@ -234,7 +235,7 @@ export const PagesStep = () => {
                     }
                   >
                     +
-                  </ShimmerButton>
+                  </Button>
                 </div>
                 {formData.purpose === 'client' &&
                   pages.complexity[pageType.name] &&
