@@ -49,8 +49,6 @@ export function WebCalcSeoStep() {
 
   return (
     <PluginStepLayout
-      title="SEO Plugin Selection"
-      description="Choose an SEO plugin to optimize your website for search engines. Each option offers different features for improving your site's visibility."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary

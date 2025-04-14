@@ -49,8 +49,6 @@ export function WebCalcEcommerceStep() {
 
   return (
     <PluginStepLayout
-      title="eCommerce Platform"
-      description="Select your eCommerce platform to power your online store. Each option offers different features for selling products and managing your business."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary

@@ -42,8 +42,6 @@ export function WebCalcCacheStep() {
 
   return (
     <PluginStepLayout
-      title="Cache & Optimization"
-      description="Choose a caching and optimization plugin to improve your website's performance. Each option offers different features for speed optimization and user experience."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary

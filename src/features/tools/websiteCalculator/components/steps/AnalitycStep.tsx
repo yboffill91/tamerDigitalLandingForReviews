@@ -47,8 +47,6 @@ export function WebCalcAnalyticsStep() {
 
   return (
     <PluginStepLayout
-      title="Analytics Solution"
-      description="Choose an analytics plugin to track and analyze your website's performance. Each option offers different features for visitor tracking and reporting."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary

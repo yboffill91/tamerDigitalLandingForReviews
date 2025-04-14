@@ -42,8 +42,6 @@ export function WebCalcFormsStep() {
 
   return (
     <PluginStepLayout
-      title="Forms & Subscriptions"
-      description="Choose a forms plugin to handle contact forms and subscriptions. Each option offers different features for user interaction and data collection."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary

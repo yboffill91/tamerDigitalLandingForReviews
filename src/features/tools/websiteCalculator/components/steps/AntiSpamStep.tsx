@@ -49,8 +49,6 @@ export function WebCalcAntispamStep() {
 
   return (
     <PluginStepLayout
-      title="Anti-spam Protection"
-      description="Choose an anti-spam solution to protect your forms and comments from spam. Each option offers different approaches to spam prevention and protection."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary

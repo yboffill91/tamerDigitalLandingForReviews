@@ -52,8 +52,6 @@ export function WebCostSecurityStep() {
 
   return (
     <PluginStepLayout
-      title="Website Security"
-      description="Choose a security plugin to protect your website from threats and attacks. Each option offers different levels of protection and features."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary

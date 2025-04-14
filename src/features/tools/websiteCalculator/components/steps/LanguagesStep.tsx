@@ -49,8 +49,6 @@ export function WebCalcMultiLingulStep() {
 
   return (
     <PluginStepLayout
-      title="Multilingual Support"
-      description="Choose a multilingual plugin to make your website available in multiple languages. Each option offers different features for translation management and language switching."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary

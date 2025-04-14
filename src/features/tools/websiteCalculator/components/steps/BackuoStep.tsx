@@ -58,8 +58,6 @@ export function WebCalcBackupStep() {
 
   return (
     <PluginStepLayout
-      title="Backup Solution"
-      description="Choose a backup plugin to protect your website's data and content. Each option offers different features for backup, restore, and migration."
       priceSummary={
         formData.purpose === 'client' && (
           <PluginPriceSummary
