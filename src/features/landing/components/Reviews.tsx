@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { reviews } from '@/features/landing/utils';
 import Link from 'next/link';
-// import { AnimatedPinWithLines } from './ui';
 
 function ReviewsHeader() {
   return (
