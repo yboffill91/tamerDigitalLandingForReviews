@@ -1,8 +1,7 @@
 'use client';
 import React, { useRef, useEffect, useState } from 'react';
 import {
-  // GoogleCard,
-  // CircularProgress,
+  GoogleCard,
   RevenueDashboard,
   WorkflowStatus,
   Compare,
@@ -118,10 +117,12 @@ export const Cards = () => {
               <>
                 <AnimatedCard delay={0}>
                   <div className="p-4 h-[520px] bg-card/90 backdrop-blur-sm border border-ring/20 rounded-lg shadow-[inset_0_2px_25px_rgba(255,255,255,0.03)] hover:shadow-[inset_0_2px_35px_rgba(255,255,255,0.06)] transition-shadow duration-300">
-                    <div className="mb-2 h-[380px]">{/* <GoogleCard /> */}</div>
-                    <div className="px-4">
-                      <div className="mb-4">{/* <CircularProgress /> */}</div>
+                    <div className="mb-2 h-[380px]">
+                      <GoogleCard />
                     </div>
+                    {/* <div className="px-4">
+                      <div className="mb-4"><CircularProgress /></div>
+                    </div> */}
                   </div>
                 </AnimatedCard>
 

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Mic, Camera } from 'lucide-react';
 import { searchResults } from '@/features/landing/utils';
 
-export default function GoogleCard() {
+export function GoogleCard() {
   const [text, setText] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [currentSearch, setCurrentSearch] = useState(

@@ -212,11 +212,11 @@ export const PagesStep = () => {
       {/* Base Pages Section */}
       <div className="mb-8">
         <h3 className="text-2xl font-semibold mb-4">Base Pages</h3>
-        <ul className="grid grid-cols-7 gap-4">
-          {basePages.map(({ name }) => (
+        <ul className="flex gap-4 flex-wrap items-center justify-center">
+          {basePages.map(({ name }: { name: string }) => (
             <li
               key={name}
-              className={`border border-foreground/20 rounded-lg py-3 px-5 bg-ring/5 text-ring `}
+              className={`border border-foreground/20 rounded-lg py-3 px-5 bg-ring/5 text-ring min-w-32 flex-grow`}
             >
               <h4 className="font-semibold">{name}</h4>
             </li>

@@ -1,10 +1,12 @@
 import {
+  Cards,
   FAQ,
+  Features,
   FeaturesTabs,
-  FreeTools,
   HeroSectionWithBeamsAndGrid,
   Locations,
   Process,
+  ReadyToGrow,
   Reviews,
   SEOResultsCard,
   Services,
@@ -28,6 +30,7 @@ const LandingPage = () => {
       </section>
       <section>
         <WhyNeedUs />
+        <Cards />
       </section>
       <section>
         <Locations />
@@ -37,7 +40,8 @@ const LandingPage = () => {
         <SEOResultsCard />
       </section>
       <section>
-        <FreeTools />
+        {/* <FreeTools /> */}
+        <Features />
       </section>
       <section>
         <Services />
@@ -50,6 +54,9 @@ const LandingPage = () => {
       </section>
       <section>
         <Reviews />
+      </section>
+      <section>
+        <ReadyToGrow />
       </section>
       <section>
         <FAQ />

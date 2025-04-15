@@ -10,7 +10,6 @@ import {
   Star,
 } from 'lucide-react';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import {
   IconButton3D,
   InfoCard,
@@ -19,18 +18,20 @@ import {
 } from '@/components/ui';
 import { ShineColors } from '@/lib';
 
-const GoogleCard = dynamic(() => import('./card-grid/GoogleCard'), {
-  ssr: false,
-});
-
 const stats = [
-  {
-    component: GoogleCard,
-  },
   {
     value: <span className="text-primary">70%</span>,
     label: 'Small Businesses Fail Without Digital',
     description: "Stay ahead of the curve and secure your business's future",
+  },
+  {
+    value: (
+      <span className="text-primary">
+        {Math.floor(Math.random() * 90) + 10}%
+      </span>
+    ),
+    label: 'Small Businesses Fail Without Digital',
+    description: `Stay ahead of the curve and secure your business's future, because ${Math.floor(Math.random() * 90) + 10}% of small businesses fail without a strong digital presence`,
   },
   {
     value: <span className="text-primary">200%</span>,
@@ -108,21 +109,17 @@ export function WhyNeedUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`relative h-[200px] ${stat.component ? '' : 'p-6 bg-card/90 backdrop-blur-sm border border-foreground/20/10'} rounded-lg overflow-hidden group hover:border-primary/20 transition-all duration-300`}
+              className={`relative h-[200px] p-6 bg-card/90 backdrop-blur-sm border border-foreground/20/10 rounded-lg overflow-hidden group hover:border-primary/20 transition-all duration-300`}
             >
-              {stat.component ? (
-                <stat.component />
-              ) : (
-                <div className="relative z-10">
-                  <div className="text-3xl font-bold mb-2">{stat.value}</div>
-                  <div className="font-medium text-foreground/60 mb-2">
-                    {stat.label}
-                  </div>
-                  <div className="text-sm text-foreground/60">
-                    {stat.description}
-                  </div>
+              <div className="relative z-10">
+                <div className="text-3xl font-bold mb-2">{stat.value}</div>
+                <div className="font-medium text-foreground/60 mb-2">
+                  {stat.label}
                 </div>
-              )}
+                <div className="text-sm text-foreground/60">
+                  {stat.description}
+                </div>
+              </div>
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.div>
           ))}
@@ -202,7 +199,6 @@ export function WhyNeedUs() {
             Free Strategy Session · No Commitment Required
           </p>
         </motion.div>
-        http://localhost:3000/tools/seo-scout
       </div>
     </section>
   );
