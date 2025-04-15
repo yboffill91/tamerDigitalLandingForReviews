@@ -1,78 +1,163 @@
 'use client';
-import { useCalculatorStore } from '@/store';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import type { PageComplexityType } from '@/store';
 import {
-  usePagesStore,
-  basePages,
+  usePagesData,
+  useFormData,
+  usePricing,
   pageTypes,
 } from '@/features/tools/websiteCalculator/utils';
+import { Button } from '@/features/tools/websiteCalculator/components/ui/button';
 import { cn } from '@/lib';
-import { Button } from '@/features/tools/websiteCalculator/components';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { ShimmerButton } from '@/components/ui';
+
+// Define base pages
+const basePages: { name: string; mark: boolean }[] = [
+  { name: 'Home', mark: false },
+  { name: 'About', mark: false },
+  { name: 'Blog', mark: false },
+  { name: 'Contact', mark: false },
+  { name: 'Privacy Policy', mark: false },
+  { name: 'Services', mark: false },
+  { name: 'Terms of Service', mark: true },
+];
 
 export const PagesStep = () => {
   const router = useRouter();
-  const { formData } = useCalculatorStore();
+  const { formData } = useFormData();
   const {
     pages,
-    setPageComplexity,
-    setPageCount,
-    setTotalPages,
+    updatePageComplexity,
+    changePageCount,
     setPagePrice,
-  } = usePagesStore();
+    setTotalPages,
+  } = usePagesData();
+  const { updateTotalPrice } = usePricing();
 
-  // Set basic complexity by default for all page types
+  // Track pages by complexity for better organization
+  const [pagesByComplexity, setPagesByComplexity] = useState<{
+    basic: string[];
+    intermediate: string[];
+    advanced: string[];
+  }>({
+    basic: [],
+    intermediate: [],
+    advanced: [],
+  });
+
+  // Set default complexity for all page types if not already set
   useEffect(() => {
-    const defaultComplexity = pageTypes.reduce(
-      (acc, pageType) => ({
-        ...acc,
-        [pageType.name]: 'basic',
-      }),
-      {}
-    );
+    const complexityEntries = Object.entries(pages.complexity);
 
-    setPageComplexity(defaultComplexity);
+    if (complexityEntries.length < pageTypes.length) {
+      const defaultComplexity: Record<string, PageComplexityType> = {};
+
+      pageTypes.forEach(pageType => {
+        if (!pages.complexity[pageType.name]) {
+          defaultComplexity[pageType.name] = 'basic';
+        }
+      });
+
+      if (Object.keys(defaultComplexity).length > 0) {
+        const updatedComplexity = { ...pages.complexity, ...defaultComplexity };
+        pageTypes.forEach(pageType => {
+          updatePageComplexity(
+            pageType.name,
+            updatedComplexity[pageType.name] || 'basic'
+          );
+        });
+      }
+    }
   }, []);
 
+  // Update pages by complexity whenever complexity or counts change
   useEffect(() => {
-    calculatePagesPrice();
-  }, [pages.count, pages.complexity]);
+    const basic: string[] = [];
+    const intermediate: string[] = [];
+    const advanced: string[] = [];
 
-  const calculatePagesPrice = () => {
-    let totalPrice = 0;
-    let totalPageCount = basePages.length;
-
-    // Calculate additional pages
-    Object.entries(pages.count).forEach(([pageTypeName, count]) => {
-      if (count > 0) {
-        totalPageCount += count;
-
-        // Add price calculation for client projects
-        if (formData.purpose === 'client') {
-          const pageTypeData = pageTypes.find(t => t.name === pageTypeName);
-          if (pageTypeData) {
-            // Get complexity or default to 'basic'
-            const complexity = pages.complexity[pageTypeName] || 'basic';
-            // Access prices using the complexity as a key
-            const price =
-              pageTypeData.prices[
-                complexity as keyof typeof pageTypeData.prices
-              ] * count;
-            totalPrice += price * 1.3; // 30% margin for client projects
-          }
-        }
+    Object.entries(pages.complexity).forEach(([pageName, complexity]) => {
+      if (pages.count[pageName] && pages.count[pageName] > 0) {
+        if (complexity === 'basic') basic.push(pageName);
+        else if (complexity === 'intermediate') intermediate.push(pageName);
+        else if (complexity === 'advanced') advanced.push(pageName);
       }
     });
 
-    setTotalPages(totalPageCount);
-    setPagePrice(totalPrice);
+    setPagesByComplexity({
+      basic,
+      intermediate,
+      advanced,
+    });
+  }, [pages.complexity, pages.count]);
+
+  // Calculate total pages
+  const totalPages =
+    basePages.length +
+    Object.values(pages.count).reduce((sum, count) => sum + (count || 0), 0);
+
+  // Calculate pages price
+  const calculatePagesPrice = () => {
+    let price = 0;
+
+    // Calculate price based on selected pages and their complexity
+    Object.entries(pages.count).forEach(([pageName, count]) => {
+      if (!count || count <= 0) return;
+
+      const pageType = pageTypes.find(type => type.name === pageName);
+      const complexity = pages.complexity[pageName];
+
+      if (pageType && complexity && count > 0) {
+        const basePrice =
+          pageType.prices[complexity as keyof typeof pageType.prices];
+        // Apply client markup if applicable
+        const markup = formData.purpose === 'client' ? 1.3 : 1;
+        price += basePrice * count * markup;
+      }
+    });
+
+    return price;
+  };
+
+  const pagesPrice = calculatePagesPrice();
+
+  // Update store when calculated values change
+  useEffect(() => {
+    setPagePrice(pagesPrice);
+    setTotalPages(totalPages);
+    updateTotalPrice(pagesPrice);
+  }, [pagesPrice, totalPages, setPagePrice, setTotalPages, updateTotalPrice]);
+
+  // Handle navigation
+
+  // Handle complexity change
+  const handleComplexityChange = (
+    pageName: string,
+    complexity: PageComplexityType
+  ) => {
+    updatePageComplexity(pageName, complexity);
+  };
+
+  // Handle count change with proper validation
+  const handleCountChange = (pageName: string, change: number) => {
+    const currentCount = pages.count[pageName] || 0;
+    const newCount = Math.max(0, currentCount + change);
+
+    // Only update if there's an actual change
+    if (newCount !== currentCount) {
+      changePageCount(pageName, change);
+    }
   };
 
   return (
     <>
       <div className="grid md:grid-cols-2 gap-8 text-foreground/80 mb-6">
         <div>
+          <p className="mb-3">
+            Configure the pages for your website. The module works in two parts:
+          </p>
           <ul className="space-y-4">
             <li className="space-y-2">
               <div className="flex items-center gap-2">
@@ -116,7 +201,7 @@ export const PagesStep = () => {
         </div>
         <div className="md:col-span-2">
           {formData.purpose === 'client' && (
-            <div className="bg-ring/5 border border-foreground/20 rounded-lg p-4 text-ring">
+            <div className="bg-ring/5 border border-foreground/20 rounded-lg p-4 text-primary">
               Note: Prices shown include development, setup, and a 30% service
               margin.
             </div>
@@ -127,28 +212,16 @@ export const PagesStep = () => {
       {/* Base Pages Section */}
       <div className="mb-8">
         <h3 className="text-2xl font-semibold mb-4">Base Pages</h3>
-        <div className="flex flex-nowrap gap-4 overflow-x-auto pb-4">
-          {basePages
-            .filter(page => !page.displayInline)
-            .map(page => (
-              <div
-                key={page.name}
-                className="bg-ring/5 border border-foreground/20 rounded-lg px-4 py-3 flex-none w-48"
-              >
-                <h4 className="font-semibold">{page.name}</h4>
-              </div>
-            ))}
-          {basePages
-            .filter(page => page.displayInline)
-            .map(page => (
-              <div
-                key={page.name}
-                className="bg-primary text-primary-foreground border border-foreground/20 rounded-lg px-4 py-3 flex-none flex-grow"
-              >
-                <h4 className="font-semibold">{page.name}</h4>
-              </div>
-            ))}
-        </div>
+        <ul className="grid grid-cols-7 gap-4">
+          {basePages.map(({ name }) => (
+            <li
+              key={name}
+              className={`border border-foreground/20 rounded-lg py-3 px-5 bg-ring/5 text-ring `}
+            >
+              <h4 className="font-semibold">{name}</h4>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Additional Pages Section */}
@@ -158,7 +231,7 @@ export const PagesStep = () => {
           {pageTypes.map(pageType => (
             <div
               key={pageType.name}
-              className="bg-card border border-foreground/20 rounded-lg p-4"
+              className="bg-ring/5 border border-foreground/20 rounded-lg p-4"
             >
               <div className="mb-3">
                 <h4 className="text-lg font-semibold">{pageType.name}</h4>
@@ -172,16 +245,13 @@ export const PagesStep = () => {
 
               <div className="flex flex-wrap gap-2 mb-3">
                 {['basic', 'intermediate', 'advanced'].map(complexity => (
-                  <Button
-                    variant="outline"
+                  <button
                     key={complexity}
                     onClick={() =>
-                      setPageComplexity({
-                        [pageType.name]: complexity as
-                          | 'basic'
-                          | 'intermediate'
-                          | 'advanced',
-                      })
+                      handleComplexityChange(
+                        pageType.name,
+                        complexity as PageComplexityType
+                      )
                     }
                     className={cn(
                       'px-3 py-1.5 rounded text-sm font-medium transition-all flex items-center gap-2',
@@ -204,7 +274,7 @@ export const PagesStep = () => {
                         )
                       </span>
                     )}
-                  </Button>
+                  </button>
                 ))}
               </div>
 
@@ -212,13 +282,9 @@ export const PagesStep = () => {
                 <div className="flex items-center gap-2">
                   <Button
                     variant="outline"
-                    onClick={() =>
-                      setPageCount({
-                        ...pages.count,
-                        [pageType.name]: pages.count[pageType.name] - 1,
-                      })
-                    }
-                    className={`${!pages.count[pageType.name] && 'pointer-events-none bg-foreground/20 text-foreground/40'}`}
+                    size="sm"
+                    onClick={() => handleCountChange(pageType.name, -1)}
+                    disabled={!pages.count[pageType.name]}
                   >
                     -
                   </Button>
@@ -227,12 +293,8 @@ export const PagesStep = () => {
                   </span>
                   <Button
                     variant="outline"
-                    onClick={() =>
-                      setPageCount({
-                        ...pages.count,
-                        [pageType.name]: pages.count[pageType.name] + 1,
-                      })
-                    }
+                    size="sm"
+                    onClick={() => handleCountChange(pageType.name, 1)}
                   >
                     +
                   </Button>
@@ -255,17 +317,83 @@ export const PagesStep = () => {
         </div>
       </div>
 
+      {/* Pages by Complexity */}
+      {(pagesByComplexity.basic.length > 0 ||
+        pagesByComplexity.intermediate.length > 0 ||
+        pagesByComplexity.advanced.length > 0) && (
+        <div className="mt-8 bg-ring/5 border border-foreground/20 rounded-lg p-6">
+          <h3 className="text-xl font-semibold mb-4">Pages by Complexity</h3>
+
+          {pagesByComplexity.basic.length > 0 && (
+            <div className="mb-4">
+              <h4 className="text-md font-medium flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 bg-secondary-green rounded-full" />
+                Basic Pages ({pagesByComplexity.basic.length})
+              </h4>
+              <div className="flex flex-wrap gap-2 ml-4">
+                {pagesByComplexity.basic.map(pageName => (
+                  <div
+                    key={pageName}
+                    className="px-3 py-1 bg-secondary-green/10 border border-secondary-green/30 rounded-full text-sm"
+                  >
+                    {pageName} ({pages.count[pageName]})
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {pagesByComplexity.intermediate.length > 0 && (
+            <div className="mb-4">
+              <h4 className="text-md font-medium flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 bg-yellow-500 rounded-full" />
+                Intermediate Pages ({pagesByComplexity.intermediate.length})
+              </h4>
+              <div className="flex flex-wrap gap-2 ml-4">
+                {pagesByComplexity.intermediate.map(pageName => (
+                  <div
+                    key={pageName}
+                    className="px-3 py-1 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-sm"
+                  >
+                    {pageName} ({pages.count[pageName]})
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {pagesByComplexity.advanced.length > 0 && (
+            <div>
+              <h4 className="text-md font-medium flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 bg-destructive rounded-full" />
+                Advanced Pages ({pagesByComplexity.advanced.length})
+              </h4>
+              <div className="flex flex-wrap gap-2 ml-4">
+                {pagesByComplexity.advanced.map(pageName => (
+                  <div
+                    key={pageName}
+                    className="px-3 py-1 bg-destructive/10 border border-destructive/30 rounded-full text-sm"
+                  >
+                    {pageName} ({pages.count[pageName]})
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Summary */}
-      <div className="mt-8 bg-gradient-to-br from-primary/10 to-ring/20 border border-foreground/20 rounded-lg p-6">
+      <div className="mt-8 bg-ring/5 border border-foreground/20 rounded-lg p-6">
         <div className="flex justify-between items-center">
           <div className="flex-1">
             <h3 className="text-xl font-semibold text-primary">Total Pages</h3>
             <p className="text-3xl font-bold text-foreground mt-2">
-              {pages.totalPages} pages
+              {totalPages} pages
             </p>
             <div className="text-sm text-foreground/80 mt-2">
-              {basePages.length} base pages +{' '}
-              {pages.totalPages - basePages.length} additional pages
+              {basePages.length} base pages + {totalPages - basePages.length}{' '}
+              additional pages
             </div>
           </div>
           {formData.purpose === 'client' && (
@@ -274,7 +402,7 @@ export const PagesStep = () => {
                 Total Price
               </h3>
               <p className="text-3xl font-bold text-foreground mt-2">
-                ${pages.price.toFixed(2)}
+                ${pagesPrice.toFixed(2)}
               </p>
               <div className="text-sm text-foreground/80 mt-2">
                 Includes professional development and setup
@@ -283,11 +411,13 @@ export const PagesStep = () => {
           )}
         </div>
       </div>
+
+      {/* Navigation Buttons */}
       <div className="flex justify-center items-center gap-6 w-full mt-12">
         <ShimmerButton
           variant="ghost"
           size="big"
-          onClick={() => router.push('/website-calculator/themeStep')}
+          onClick={() => router.push('//website-calculator/themeStep')}
         >
           Back
         </ShimmerButton>
@@ -303,3 +433,5 @@ export const PagesStep = () => {
     </>
   );
 };
+
+export default PagesStep;

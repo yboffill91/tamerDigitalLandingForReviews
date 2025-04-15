@@ -245,9 +245,29 @@ export const useCalculatorStore = create<CalculatorStore>()(
 
       // Set pages
       setPages: data =>
-        set(state => ({
-          pages: { ...state.pages, ...data },
-        })),
+        set(state => {
+          // Check if the new state is different from the current state
+          const newPages = { ...state.pages, ...data };
+
+          // Check if values are actually different to avoid unnecessary updates
+          let hasChanged = false;
+          for (const key in data) {
+            // Type-safe property access using the key as a typed index
+            const keyAsPageProperty = key as keyof typeof state.pages;
+            const currentValue = state.pages[keyAsPageProperty];
+            const newValue = data[keyAsPageProperty as keyof typeof data];
+
+            if (JSON.stringify(currentValue) !== JSON.stringify(newValue)) {
+              hasChanged = true;
+              break;
+            }
+          }
+
+          // Only update if there are actual changes
+          if (!hasChanged) return state;
+
+          return { pages: newPages };
+        }),
 
       // Set plugin
       setPlugin: (pluginType, name, version, price) => {
@@ -307,7 +327,14 @@ export const useCalculatorStore = create<CalculatorStore>()(
         })),
 
       // Set total price directly
-      setTotalPrice: price => set({ totalPrice: price }),
+      setTotalPrice: price => 
+        set(state => {
+          // Skip update if the price hasn't changed
+          if (state.totalPrice === price) {
+            return state;
+          }
+          return { totalPrice: price };
+        }),
 
       // Calculate total price
       calculateTotalPrice: () =>
@@ -326,10 +353,16 @@ export const useCalculatorStore = create<CalculatorStore>()(
               : 0,
           ].reduce((sum, price) => sum + price, 0);
 
-          return {
-            totalPrice:
-              state.pages.price + pluginPrices + state.maintenance.price,
-          };
+          // Calculate the new total price
+          const newTotalPrice =
+            state.pages.price + pluginPrices + state.maintenance.price;
+
+          // Only update if the total price has actually changed
+          if (newTotalPrice === state.totalPrice) {
+            return state; // Return unchanged state if total price is the same
+          }
+
+          return { totalPrice: newTotalPrice };
         }),
 
       // Check if ecommerce is enabled
