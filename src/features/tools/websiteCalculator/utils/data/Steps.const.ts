@@ -1,4 +1,5 @@
 import {
+  Flag,
   Globe,
   Languages,
   LayoutDashboard,
@@ -6,7 +7,6 @@ import {
   LucideIcon,
   Mail,
   Palette,
-  Plus,
   Save,
   Search,
   Shield,
@@ -143,7 +143,7 @@ export const Steps: Step[] = [
     title: 'Maintenance',
   },
   {
-    icon: Plus,
+    icon: Flag,
     label: 'Final Review',
     link: '/website-calculator/finalReviewStep',
     step: 14,

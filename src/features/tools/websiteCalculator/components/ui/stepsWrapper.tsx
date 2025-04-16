@@ -12,9 +12,13 @@ export const StepsWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <div className="container mt-48 mx-auto">
       <StepIndicator steps={Steps} />
-      <section className="container mx-auto rounded-lg border border-foreground/20 bg-card p-8 mt-4 mb-24">
-        <h1>{title}</h1>
-        <p>{description}</p>
+      <section
+        className={`container mx-auto rounded-lg border border-foreground/20 bg-card p-8 mt-4 mb-24 }`}
+      >
+        <div className={`${currentStep[0].step === 14 && 'hidden'}`}>
+          <h1>{title}</h1>
+          <p>{description}</p>
+        </div>
         <div className="p-4 flex flex-col gap-4 w-full">{children}</div>
       </section>
     </div>

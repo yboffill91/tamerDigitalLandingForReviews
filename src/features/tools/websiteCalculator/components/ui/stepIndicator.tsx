@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Step } from '@/features/tools/websiteCalculator/utils';
 import { usePathname } from 'next/navigation';
+import { ChevronRight } from 'lucide-react';
 
 interface StepIndicatorProps {
   steps: Step[];
@@ -21,12 +22,18 @@ export function StepIndicator({ steps }: StepIndicatorProps) {
             {steps
               .filter(step => step.link === pathname)
               .map(({ step, label }, index) => (
-                <span key={index} className="flex flex-col">
-                  <p className="text-primary text-sm">
-                    Step {step}/
-                    {step === 14 ? 'Just The Last Step' : steps.length - 1}
-                  </p>
-                  <p className="text-md font-semibold">{label}</p>
+                <span key={index} className="flex flex-col ">
+                  {step < 14 ? (
+                    <div className="p-2 rounded-lg bg-ring/5">
+                      <p className="flex items-center ">
+                        <span className="font-black mr-2"> Step: </span> {step}{' '}
+                        <ChevronRight className="size-4" /> {steps.length - 1}
+                      </p>
+                      <h3>{label}</h3>
+                    </div>
+                  ) : (
+                    <p className="p-2 rounded-lg bg-ring/5">Summary</p>
+                  )}
                 </span>
               ))}
           </div>
