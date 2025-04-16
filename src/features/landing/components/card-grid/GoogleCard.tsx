@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Mic, Camera } from 'lucide-react';
+import { Search, Mic, Camera, Circle } from 'lucide-react';
 import { searchResults } from '@/features/landing/utils';
 
 export function GoogleCard() {
@@ -55,15 +55,20 @@ export function GoogleCard() {
   const LoadingBlock = () => (
     <div className="space-y-3">
       <div className="h-2 bg-foreground/50 rounded-full w-3/4 animate-pulse" />
+      <div className="h-2 bg-foreground/50 rounded-full w-2/3 animate-pulse" />
       <div className="h-2 bg-foreground/50 rounded-full w-1/2 animate-pulse" />
       <div className="h-2 bg-foreground/50 rounded-full w-2/3 animate-pulse" />
+      <div className="h-2 bg-foreground/50 rounded-full w-3/5 animate-pulse" />
+      <div className="h-2 bg-foreground/50 rounded-full w-1/2 animate-pulse" />
+      <div className="h-2 bg-foreground/50 rounded-full w-3/4 animate-pulse" />
       <div className="h-2 bg-foreground/50 rounded-full w-3/5 animate-pulse" />
     </div>
   );
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-card/90 backdrop-blur-sm border border-foreground/20/10 rounded-lg group hover:border-primary/20 transition-all duration-300">
-      <div className="p-6 flex flex-col h-full">
+    <div className="w-full relative overflow-hidden bg-card/90 backdrop-blur-sm   group  transition-all duration-300 ">
+      <div className="p-6 flex flex-col h-80 relative hover:border-primary/20 border border-foreground/10 rounded-lg">
+        <div className="absolute bottom-0 rounded-b-lg left-0 w-full h-px bg-gradient-to-b from-transparent via-transparent to-ring/50 group-hover:h-48 transition-all duration-700  ease-in-out z-10 " />
         <div>
           <div className="text-xl text-foreground/40 text-center mb-4">
             Google
@@ -163,6 +168,18 @@ export function GoogleCard() {
             )}
           </div>
         </div>
+      </div>
+      <div className="px-8 py-6"></div>
+      <div>
+        <h3 className="flex items-center justify-center">
+          <Circle className="text-primary size-2 mt-1 mx-2 fill-secondary" />
+          <span className="text-primary mr-2">81% </span> Purchase Decisions
+          Start Online
+        </h3>
+        <p className="text-sm text-foreground/80 text-center mt-4 mb-6">
+          Your website is your 24/7 salesperson. Are you visible when they
+          search?
+        </p>
       </div>
     </div>
   );

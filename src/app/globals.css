@@ -93,7 +93,7 @@
 
 @layer utilities {
   .heading-gradient {
-    @apply bg-gradient-to-tr from-ring via-primary to-secondary bg-clip-text text-transparent font-bold;
+    @apply bg-gradient-to-tr from-secondary via-primary to-secondary bg-clip-text text-transparent font-bold;
   }
   .card {
     @apply bg-gradient-to-b from-card to-background-primary hover:border-primary transition-all duration-300 ease-in-out transform hover:scale-[1.02] relative w-64 h-64;
@@ -122,6 +122,9 @@
   100% {
     transform: translateX(0);
   }
+}
+.heading-gradient {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .animate-scroll-left {

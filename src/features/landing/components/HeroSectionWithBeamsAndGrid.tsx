@@ -20,7 +20,7 @@ export function HeroSectionWithBeamsAndGrid() {
   return (
     <div
       ref={sectionRef}
-      className="relative ease-in-out flex flex-col items-center justify-center container mx-auto lg:pt-24 pt-10 w-screen"
+      className="relative ease-in-out flex flex-col items-center justify-center container mx-auto lg:pt-24 pt-28 w-screen"
     >
       <BackgroundGrids />
 

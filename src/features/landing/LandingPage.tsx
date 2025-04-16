@@ -29,11 +29,11 @@ const LandingPage = () => {
         <span className="absolute bottom-0 left-0 h-96 w-screen bg-gradient-to-b from-transparent to-background-primary -z-10" />
       </section>
       <section>
-        <WhyNeedUs />
-        <Cards />
+        <Locations />
       </section>
       <section>
-        <Locations />
+        <WhyNeedUs />
+        <Cards />
       </section>
       <section>
         <FeaturesTabs />
