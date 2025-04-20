@@ -16,8 +16,13 @@ export const Features = () => {
   const isInView2 = useInView(ref2, { once: true, amount: 0.3 });
 
   return (
-    <div className="container mx-auto">
-      <div className=" mx-auto px-4 ">
+    <div
+      className="sm:bg-[url('/features/landing/services/bg-desktop.webp')] bg-[url('/features/landing/services/bg-mobile.webp')] bg-[size(100%_100%)] bg-no-repeat bg-top"
+      style={{
+        backgroundSize: '100% 100%',
+      }}
+    >
+      <div className="container mx-auto px-4 ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div
             ref={ref1}
@@ -62,7 +67,7 @@ export const Features = () => {
         </div>
       </div>
 
-      <div className=" mx-auto px-4">
+      <div className="container mx-auto px-4">
         <motion.div
           ref={ref2}
           initial={{ opacity: 0, y: 50, scale: 0.95 }}

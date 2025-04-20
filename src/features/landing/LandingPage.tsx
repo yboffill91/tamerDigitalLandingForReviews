@@ -35,15 +35,19 @@ const LandingPage = () => {
         <WhyNeedUs />
         <Cards />
       </section>
-      <section>
+      <section className='sm:bg-[url("/features/landing/features/bg-desktop.webp")] bg-[url("/features/landing/features/bg-mobile.webp")] bg-[size(100%_100%)] bg-no-repeat bg-top'>
         <FeaturesTabs />
         <SEOResultsCard />
       </section>
-      <section>
-        {/* <FreeTools /> */}
+      <section className="">
         <Features />
       </section>
-      <section>
+      <section
+        className='sm:bg-[url("/features/landing/tools/bg-desktop.webp")] bg-[url("/features/landing/tools/bg-mobile.webp")]bg-[size(100%_100%)] bg-no-repeat bg-top pt-48 pb-[46rem] -mt-52'
+        style={{
+          backgroundSize: '100%',
+        }}
+      >
         <Services />
       </section>
       <section>
@@ -52,13 +56,23 @@ const LandingPage = () => {
       <section>
         <SocialMedia />
       </section>
-      <section>
+      <section
+        className='sm:bg-[url("/features/landing/reviews/bg-desktop.webp")] bg-[url("/features/landing/reviews/bg-mobile.webp")]bg-[size(100%_100%)] bg-no-repeat bg-top pt-48 h-[1900px]'
+        style={{
+          backgroundSize: '100%',
+        }}
+      >
         <Reviews />
       </section>
       <section>
         <ReadyToGrow />
       </section>
-      <section>
+      <section
+        className='sm:bg-[url("/features/landing/faq/bg-desktop.webp")] bg-[url("/features/landing/faq/bg-mobile.webp")]bg-[size(100%_100%)] bg-no-repeat bg-top'
+        style={{
+          backgroundSize: '100%',
+        }}
+      >
         <FAQ />
       </section>
     </main>

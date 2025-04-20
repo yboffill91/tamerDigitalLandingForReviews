@@ -67,21 +67,21 @@ export const Radar = ({ className }: RadarProps) => {
           transformOrigin: 'right center',
           transform: `rotate(${angle}deg)`,
         }}
-        className='absolute right-1/2 top-1/2 z-40 flex h-[5px] overflow-hidden w-[400px] items-end justify-center bg-transparent'
+        className="absolute right-1/2 top-1/2 z-40 flex h-[5px] overflow-hidden w-[400px] items-end justify-center bg-transparent"
       >
         {/* Radar line that rotates */}
-        <div className='relative z-40 h-[1px] w-full bg-gradient-to-r from-transparent via-ring to-transparent' />
+        <div className="relative z-40 h-[1px] w-full bg-gradient-to-r from-transparent via-ring to-transparent" />
       </div>
       {/* concentric circles */}
       {circles.map((circle, idx) => (
         <Circle
+          key={circle + idx}
+          idx={idx}
           style={{
             height: `${(idx + 1) * 5}rem`,
             width: `${(idx + 1) * 5}rem`,
-            border: `10px solid rgba(0,0,0 ${0.4 - (idx + 1) * 0.05})`,
+            border: `10px solid hsla(100,50%,50%, ${0.4 - (idx + 1) * 0.05})`,
           }}
-          key={`motion-${idx}`}
-          idx={idx}
         />
       ))}
     </div>
@@ -110,7 +110,7 @@ export const Circle = ({ className, idx, ...rest }: CircleProps) => {
         duration: 0.5,
       }}
       className={twMerge(
-        'absolute inset-0 left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 transform rounded-full ',
+        'absolute inset-0 left-1/2 top-1/2 size-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full z-50',
         className
       )}
     ></motion.div>

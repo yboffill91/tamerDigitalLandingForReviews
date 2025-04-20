@@ -46,10 +46,10 @@ export function Locations() {
   const locations = activeTab === 'seo' ? seoLocations : marketingLocations;
 
   return (
-    <section className=" relative overflow-hidden">
+    <section className=" relative overflow-hidden ">
       {/* Grid Pattern Background */}
       <Grid />
-      <span className="absolute top-0 left-0 -z-10 w-full h-full bg-gradient-to-bl from-background-primary via-transparent to-background-primary" />
+      <span className="absolute top-0 left-0 -z-10 w-full h-full sm:bg-[url('/features/landing/locations/bg-desktop.webp')] bg-[url('/features/landing/locations/bg-mobile.webp')] bg-[size:100%_100%] bg-no-repeat bg-top -z-40" />
       <span className="absolute top-0 left-0 -z-10 w-full h-full bg-gradient-to-tl from-background-primary via-ring/5 to-background-primary" />
       <span className="absolute top-0 left-0 -z-10 w-full h-full bg-gradient-to-tr from-background-primary via-transparent to-background-primary" />
       <span className="absolute top-0 left-0 -z-10 w-full h-full bg-gradient-to-br from-background-primary via-transparent to-background-primary" />

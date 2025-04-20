@@ -14,7 +14,14 @@ import { LocationsList } from '@/features/services/utils';
 
 export default function GoogleAdsComponents() {
   return (
-    <main>
+    <main
+      style={{
+        backgroundImage: 'url("/features/services/google-ads/google-bg.webp")',
+        backgroundSize: '100%',
+        backgroundPosition: 'top',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <GoogleAdsHero />
       <section>
         <Locations LocationList={LocationsList} />

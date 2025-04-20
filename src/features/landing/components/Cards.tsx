@@ -68,7 +68,7 @@ export const Cards = () => {
   }, []);
 
   return (
-    <div>
+    <div className='sm:bg-[url("/features/landing/stats/bg-desktop.webp")] bg-[url("/features/landing/stats/bg-mobile.webp")] bg-[size:100%_100%] bg-no-repeat bg-top pb-32'>
       <div ref={headerRef} className="text-center mb-12 max-w-[45rem] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -76,11 +76,11 @@ export const Cards = () => {
             isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
           }
           transition={{ duration: 0.5 }}
-          className="mb-8"
+          className="mb-8 sm:hidden mt-32"
         >
           <IconButton3D
             icon={HourglassIcon}
-            className="mb-6 text-primary hover:text-secondary transition-colors duration-300"
+            className="mb-6 text-primary hover:text-secondary transition-colors duration-300 "
           />
         </motion.div>
         <motion.h2
@@ -89,7 +89,7 @@ export const Cards = () => {
             isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
           }
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-8"
+          className="sm:pt-64 pt-8"
         >
           Real-Time Performance{' '}
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
@@ -102,7 +102,7 @@ export const Cards = () => {
             isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
           }
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-foreground/90 mt-2"
+          className="sm:mt-0 mt-24"
         >
           Monitor your digital presence with precision. Our advanced analytics
           platform provides comprehensive insights into web traffic, engagement
@@ -141,11 +141,11 @@ export const Cards = () => {
                 </AnimatedCard>
 
                 <AnimatedCard delay={0.4}>
-                  <div className="p-4 h-[520px] hidden lg:block">
+                  <div className="h-[520px] hidden lg:block">
                     <Image
-                      src="/features/landing/watch.webp"
+                      src="/features/landing/stats/card-3.webp"
                       alt="Watch"
-                      className="h-[500] object-contain"
+                      className="h-[520px] object-contain"
                       width={3000}
                       height={3000}
                     />

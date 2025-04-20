@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 
 import {
   BottomLines,
@@ -11,7 +10,7 @@ import {} from '@/lib';
 
 export default function AboutHero() {
   return (
-    <div className='relative overflow-hidden flex flex-col items-center justify-center pt-32 gap-y-4'>
+    <div className="relative overflow-hidden flex flex-col items-center justify-end pt-32 gap-y-4 min-h-screen">
       <TopLines />
       <BottomLines />
       <SideLines />
@@ -19,32 +18,21 @@ export default function AboutHero() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className='max-w-7xl mx-auto px-4 relative z-10'
+        className="max-w-7xl mx-auto px-4 relative z-10"
       >
-        <div className='flex flex-col items-center text-center'>
-          <motion.div
-            className='flex items-start justify-start mb-8'
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-          </motion.div>
-
+        <div className="flex flex-col items-center text-center mb-8 bg-gradient-to-b from-ring to-transparent p-8 rounded-lg max-w-2xl">
           <motion.h1
-            className={`font-bold text-foreground`}
+            className={`font-bold text-primary-foreground text-5xl mb-4`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             From Dreams
-            <span className='heading-gradient block'>
-              {' '}
-              To Digital Excellence
-            </span>
+            <span className="block p-2"> To Digital Excellence</span>
           </motion.h1>
 
           <motion.p
-            className='text-foreground/80 max-w-2xl text-lg leading-relaxed'
+            className="text-pretty text-primary-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -56,7 +44,7 @@ export default function AboutHero() {
           </motion.p>
         </div>
       </motion.div>
-      <motion.div
+      {/* <motion.div
         className='relative w-full max-w-5xl mx-auto mt-4'
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -74,7 +62,7 @@ export default function AboutHero() {
             maskImage: 'linear-gradient(#121212 70%, transparent )',
           }}
         />
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 }

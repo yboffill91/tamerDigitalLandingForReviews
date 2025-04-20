@@ -14,7 +14,14 @@ export default async function Blog() {
   ]);
 
   return (
-    <main className=''>
+    <main
+      style={{
+        backgroundImage: 'url("/features/blog/blog-wp.webp")',
+        backgroundSize: '100%',
+        backgroundPosition: 'top',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <BlogHero />
       <BlogGrid />
       <BlogPosts initialPosts={initialPosts} categories={categories} />

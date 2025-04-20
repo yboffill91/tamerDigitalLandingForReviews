@@ -6,7 +6,6 @@ import { Footer } from '@/features/layout/footer/Footer';
 import { ModalProvider } from '@/providers/welcomeModalProvider';
 import { DelayedModal } from '@/components/modals';
 import { ThemeProvider } from '@/providers/ThemeProvider';
-import { Breadcrumb } from '@/components';
 
 export const metadata: Metadata = {
   title: siteMetadata.title,
@@ -69,7 +68,6 @@ export default function RootLayout({
         >
           <ModalProvider>
             <Header />
-            <Breadcrumb className="fixed top-16 left-1/2 -translate-x-1/2 z-40" />
             {children}
             <Footer />
             <DelayedModal />
